@@ -3,20 +3,22 @@ import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 import bodyParser from "body-parser";
 import morganBody from "morgan-body";
 import morgan from "morgan";
+import path from "path";
 import {
   Client,
-  middleware,
   JSONParseError,
-  SignatureValidationFailed
+  SignatureValidationFailed,
+  middleware
 } from "@line/bot-sdk";
 
 // Controllers (route handlers)
-import * as homeController from "./controllers/home";
+import * as callbackController from "./controllers/callback";
 
 // create LINE SDK config from env variables
-const config = {
+export const config = {
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.CHANNEL_SECRET
+  channelSecret: process.env.CHANNEL_SECRET,
+  baseURL: process.env.BASE_URL
 };
 
 // create LINE SDK client
@@ -29,6 +31,14 @@ const app = express();
 // Express configuration
 app.set("port", process.env.PORT || 3000);
 app.use(morgan("combined"));
+
+app.use(
+  express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
+);
+
+// serve static and downloaded files
+app.use("/static", express.static("static"));
+app.use("/downloaded", express.static("downloaded"));
 
 // error handling
 app.use(
@@ -56,6 +66,6 @@ morganBody(app);
 app.get("/callback", (req, res) => {
   res.end("I'm listening. Please access with POST.");
 });
-app.post("/callback", homeController.callback);
+app.post("/callback", callbackController.callback);
 
 export default app;
