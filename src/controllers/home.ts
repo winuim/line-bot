@@ -25,7 +25,11 @@ function handleEvent(event: {
   const echo: line.TextMessage = { type: "text", text: event.message.text };
 
   // use reply API
-  return client.replyMessage(event.replyToken, echo);
+  return client.replyMessage(event.replyToken, echo).catch(err => {
+    if (err instanceof line.HTTPError) {
+      console.error(err.statusCode);
+    }
+  });
 }
 
 /**
