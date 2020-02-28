@@ -1,41 +1,27 @@
 import { Request, Response } from "express";
-import * as line from "@line/bot-sdk";
+import { HTTPError, Message, WebhookEvent } from "@line/bot-sdk";
 
-// create LINE SDK config from env variables
-export const config = {
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.CHANNEL_SECRET
-};
-
-// create LINE SDK client
-const client = new line.Client(config);
+import { client } from "../app";
 
 // event handler
-function handleEvent(event: {
-  type: string;
-  message: { type: string; text: string };
-  replyToken: string;
-}) {
+function handleEvent(event: WebhookEvent) {
   if (event.type !== "message" || event.message.type !== "text") {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
 
   // create a echoing text message
-  const echo: line.TextMessage = { type: "text", text: event.message.text };
+  const echo: Message = { type: "text", text: event.message.text };
 
   // use reply API
   return client.replyMessage(event.replyToken, echo).catch(err => {
-    if (err instanceof line.HTTPError) {
-      console.error(err.statusCode);
+    if (err instanceof HTTPError) {
+      console.error(err);
     }
   });
 }
 
-/**
- * POST /callback
- *
- */
+// POST /callback
 export const callback = (req: Request, res: Response) => {
   Promise.all(req.body.events.map(handleEvent))
     .then(result => res.json(result))
