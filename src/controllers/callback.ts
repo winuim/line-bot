@@ -36,7 +36,7 @@ function handleText(
   replyToken: string,
   source: EventSource
 ) {
-  const buttonsImageURL = `${config.baseURL}/static/buttons/1040.jpg`;
+  const buttonsImageURL = `${config.baseURL}/images/buttons/1040.jpg`;
 
   switch (message.text) {
     case "profile": {
@@ -204,7 +204,7 @@ function handleText(
     case "imagemap": {
       return client.replyMessage(replyToken, {
         type: "imagemap",
-        baseUrl: `${config.baseURL}/static/rich`,
+        baseUrl: `${config.baseURL}/images/rich`,
         altText: "Imagemap alt text",
         baseSize: { width: 1040, height: 1040 },
         actions: [
@@ -230,8 +230,8 @@ function handleText(
           }
         ],
         video: {
-          originalContentUrl: `${config.baseURL}/static/imagemap/video.mp4`,
-          previewImageUrl: `${config.baseURL}/static/imagemap/preview.jpg`,
+          originalContentUrl: `${config.baseURL}/images/imagemap/video.mp4`,
+          previewImageUrl: `${config.baseURL}/images/imagemap/preview.jpg`,
           area: {
             x: 280,
             y: 385,
@@ -292,12 +292,12 @@ function handleImage(message: ImageEventMessage, replyToken: string) {
   if (message.contentProvider.type === "line") {
     const downloadPath = path.join(
       __dirname,
-      "downloaded",
+      "dist/public/downloaded",
       `${message.id}.jpg`
     );
     const previewPath = path.join(
       __dirname,
-      "downloaded",
+      "dist/public/downloaded",
       `${message.id}-preview.jpg`
     );
 
@@ -335,12 +335,12 @@ function handleVideo(message: VideoEventMessage, replyToken: string) {
   if (message.contentProvider.type === "line") {
     const downloadPath = path.join(
       __dirname,
-      "downloaded",
+      "dist/public/downloaded",
       `${message.id}.mp4`
     );
     const previewPath = path.join(
       __dirname,
-      "downloaded",
+      "dist/public/downloaded",
       `${message.id}-preview.jpg`
     );
 
@@ -376,7 +376,7 @@ function handleAudio(message: AudioEventMessage, replyToken: string) {
   if (message.contentProvider.type === "line") {
     const downloadPath = path.join(
       __dirname,
-      "downloaded",
+      "dist/public/downloaded",
       `${message.id}.m4a`
     );
 

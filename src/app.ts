@@ -32,13 +32,10 @@ const app = express();
 app.set("port", process.env.PORT || 3000);
 app.use(morgan("combined"));
 
+// serve static and downloaded files
 app.use(
   express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
 );
-
-// serve static and downloaded files
-app.use("/static", express.static("static"));
-app.use("/downloaded", express.static("downloaded"));
 
 // error handling
 app.use(
@@ -60,12 +57,12 @@ app.use(
 );
 
 // webhook callback
-app.use("/callback", middleware(config));
-app.use(bodyParser.json());
-morganBody(app);
 app.get("/callback", (req, res) => {
   res.end("I'm listening. Please access with POST.");
 });
+app.use("/callback", middleware(config));
+app.use(bodyParser.json());
+morganBody(app);
 app.post("/callback", callbackController.callback);
 
 export default app;
