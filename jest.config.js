@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 module.exports = {
   globals: {
     "ts-jest": {
@@ -9,5 +10,6 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },
   testMatch: ["**/test/**/*.test.(ts|js)"],
-  testEnvironment: "node"
+  testEnvironment: "node",
+  setupFiles: ["dotenv/config"]
 };

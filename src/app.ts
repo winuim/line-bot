@@ -5,7 +5,6 @@ import morganBody from "morgan-body";
 import morgan from "morgan";
 import path from "path";
 import {
-  Client,
   JSONParseError,
   SignatureValidationFailed,
   middleware
@@ -13,16 +12,6 @@ import {
 
 // Controllers (route handlers)
 import * as callbackController from "./controllers/callback";
-
-// create LINE SDK config from env variables
-export const config = {
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.CHANNEL_SECRET,
-  baseURL: process.env.BASE_URL
-};
-
-// create LINE SDK client
-export const client = new Client(config);
 
 // create Express app
 // about Express itself: https://expressjs.com/
@@ -60,7 +49,7 @@ app.use(
 app.get("/callback", (req, res) => {
   res.end("I'm listening. Please access with POST.");
 });
-app.use("/callback", middleware(config));
+app.use("/callback", middleware(callbackController.config));
 app.use(bodyParser.json());
 morganBody(app);
 app.post("/callback", callbackController.callback);

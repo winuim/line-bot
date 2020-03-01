@@ -3,8 +3,9 @@ import { Request, Response } from "express";
 import fs from "fs";
 import path from "path";
 import {
-  EventSource,
   AudioEventMessage,
+  Client,
+  EventSource,
   HTTPError,
   ImageEventMessage,
   LocationEventMessage,
@@ -14,10 +15,18 @@ import {
   WebhookEvent
 } from "@line/bot-sdk";
 
-import { client, config } from "../app";
+// create LINE SDK config from env variables
+export const config = {
+  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+  channelSecret: process.env.CHANNEL_SECRET,
+  baseURL: process.env.BASE_URL
+};
+
+// create LINE SDK client
+export const client = new Client(config);
 
 // simple reply function
-const replyText = (token: string, texts: string | string[]) => {
+export const replyText = (token: string, texts: string | string[]) => {
   texts = Array.isArray(texts) ? texts : [texts];
   return client
     .replyMessage(
