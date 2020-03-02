@@ -14,22 +14,6 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "args": [
-                "${relativeFile}"
-            ],
-            "runtimeArgs": [
-                "--nolazy",
-                "-r",
-                "ts-node/register"
-            ],
-            "sourceMaps": true,
-            "cwd": "${workspaceRoot}",
-            "protocol": "inspector"
-        },
-        {
-            "type": "node",
-            "request": "launch",
             "name": "Debug Tests",
             "args": [
                 "${relativeFile}"
