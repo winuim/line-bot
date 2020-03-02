@@ -40,7 +40,7 @@ export const replyText = (token: string, texts: string | string[]) => {
     });
 };
 
-function handleText(
+export function handleText(
   message: TextMessage,
   replyToken: string,
   source: EventSource
@@ -55,6 +55,7 @@ function handleText(
           .then(profile =>
             replyText(replyToken, [
               `Display name: ${profile.displayName}`,
+              `Picture: ${profile.pictureUrl}`,
               `Status message: ${profile.statusMessage}`
             ])
           );
