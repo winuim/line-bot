@@ -4,7 +4,6 @@ import {
   replyText,
   handleText
 } from "../src/controllers/callback";
-import { resolve } from "dns";
 
 jest.mock("@line/bot-sdk");
 
