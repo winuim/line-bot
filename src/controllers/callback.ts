@@ -13,7 +13,7 @@ import {
   VideoEventMessage,
   WebhookEvent
 } from "@line/bot-sdk";
-import responseText from "../../config/responseText.json";
+import responseText from "../config/responseText.json";
 type ResponseText = typeof responseText;
 type responseTextKey = keyof ResponseText;
 
