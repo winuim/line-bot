@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
-import bodyParser from "body-parser";
-import morganBody from "morgan-body";
+// import bodyParser from "body-parser";
+// import morganBody from "morgan-body";
 import morgan from "morgan";
 import path from "path";
 import {
@@ -50,8 +50,8 @@ app.get("/callback", (req, res) => {
   res.end("I'm listening. Please access with POST.");
 });
 app.use("/callback", middleware(callbackController.config));
-app.use(bodyParser.json());
-morganBody(app);
+// app.use(bodyParser.json());
+// morganBody(app);
 app.post("/callback", callbackController.callback);
 
 export default app;
