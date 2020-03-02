@@ -1,8 +1,7 @@
 {
   "name": "line-bot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Line Bot Example",
   "scripts": {
     "start": "npm run build && npm run serve",
     "build": "npm run build-ts && npm run lint && npm run copy-static-assets",
@@ -23,15 +22,12 @@
   "license": "ISC",
   "dependencies": {
     "@line/bot-sdk": "^6.8.4",
-    "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
-    "morgan": "^1.9.1",
-    "morgan-body": "^2.4.8"
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "@types/body-parser": "^1.19.0",
     "@types/errorhandler": "^1.5.0",
     "@types/eslint": "^6.1.8",
     "@types/express": "^4.17.2",
@@ -39,8 +35,6 @@
     "@types/morgan": "^1.9.0",
     "@types/node": "^13.7.7",
     "@types/shelljs": "^0.8.6",
-    "@types/superagent": "^4.1.7",
-    "@types/supertest": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
     "concurrently": "^5.1.0",
@@ -51,8 +45,6 @@
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "shelljs": "^0.8.3",
-    "superagent": "^5.2.2",
-    "supertest": "^4.0.2",
     "ts-jest": "^25.2.1",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.3"

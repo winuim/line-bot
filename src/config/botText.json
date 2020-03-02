@@ -1,0 +1,26 @@
+{
+  "ping": {
+    "type": "text",
+    "text": "pong"
+  },
+  "confirm": {
+    "type": "template",
+    "altText": "Confirm alt text",
+    "template": {
+      "type": "confirm",
+      "text": "Do it?",
+      "actions": [
+        {
+          "label": "Yes",
+          "type": "message",
+          "text": "Yes!"
+        },
+        {
+          "label": "No",
+          "type": "message",
+          "text": "No!"
+        }
+      ]
+    }
+  }
+}
