@@ -23,9 +23,5 @@
         "**/dist": true,
         "**/coverage": true
     },
-    "typescript.referencesCodeLens.enabled": true,
-    "appService.zipIgnorePattern": [
-        ".vscode{,/**}"
-    ],
-    "appService.deploySubpath": ""
+    "typescript.referencesCodeLens.enabled": true
 }
