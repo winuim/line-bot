@@ -1,4 +1,8 @@
 {
+  "ping": {
+    "type": "text",
+    "text": "pong"
+  },
   "buttons": {
     "type": "template",
     "altText": "Buttons alt text",
