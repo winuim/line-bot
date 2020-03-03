@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import {
   Client,
   EventSource,
@@ -6,6 +5,8 @@ import {
   WebhookEvent,
   Message
 } from "@line/bot-sdk";
+import { Request, Response } from "express";
+
 import botText from "../config/botText.json";
 type BotText = typeof botText;
 type botTextKey = keyof BotText;

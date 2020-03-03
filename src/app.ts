@@ -1,12 +1,14 @@
-import express from "express";
-import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
-import morgan from "morgan";
-import path from "path";
 import {
   JSONParseError,
   SignatureValidationFailed,
   middleware
 } from "@line/bot-sdk";
+import bodyParser from "body-parser";
+import express from "express";
+import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
+import morgan from "morgan";
+import morganBody from "morgan-body";
+import path from "path";
 
 // Controllers (route handlers)
 import * as callbackController from "./controllers/callback";
@@ -47,10 +49,9 @@ app.use(
 app.get("/callback", (req, res) => {
   res.end("I'm listening. Please access with POST.");
 });
-app.post(
-  "/callback",
-  middleware(callbackController.config),
-  callbackController.callback
-);
+app.use("/callback", middleware(callbackController.config));
+app.use(bodyParser.json());
+morganBody(app);
+app.post("/callback", callbackController.callback);
 
 export default app;
