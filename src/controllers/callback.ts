@@ -66,7 +66,7 @@ export function handleText(
 }
 
 // event handler
-function handleEvent(event: WebhookEvent) {
+export function handleEvent(event: WebhookEvent) {
   if (event.type === "message") {
     if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
       return console.log(
