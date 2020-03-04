@@ -45,10 +45,13 @@ app.use(
   }
 );
 
-// webhook callback
+// GET: Error
 app.get("/callback", (req, res) => {
   res.end("I'm listening. Please access with POST.");
 });
+
+// POST: webhook callback
+// https://line.github.io/line-bot-sdk-nodejs/api-reference/middleware.html#usage
 app.use("/callback", middleware(callbackController.config));
 app.use(bodyParser.json());
 morganBody(app);
