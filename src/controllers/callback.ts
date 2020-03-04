@@ -1,13 +1,13 @@
 import {
+  AudioEventMessage,
   Client,
   EventSource,
-  TextMessage,
-  WebhookEvent,
+  ImageEventMessage,
   LocationEventMessage,
   StickerEventMessage,
-  ImageEventMessage,
+  TextMessage,
   VideoEventMessage,
-  AudioEventMessage
+  WebhookEvent
 } from "@line/bot-sdk";
 import cp from "child_process";
 import { Request, Response } from "express";
@@ -39,6 +39,7 @@ export const replyText = (token: string, texts: string | string[]) => {
 
 // content download
 function downloadContent(messageId: string, downloadPath: string) {
+  console.log(`messageId: ${messageId}, downloadpath: ${downloadPath}`);
   return client
     .getMessageContent(messageId)
     .then(
@@ -117,13 +118,11 @@ function handleImage(message: ImageEventMessage, replyToken: string) {
   let getContent;
   if (message.contentProvider.type === "line") {
     const downloadPath = path.join(
-      __dirname,
-      "dist/downloaded",
+      "dist/public/downloaded",
       `${message.id}.jpg`
     );
     const previewPath = path.join(
-      __dirname,
-      "dist/downloaded",
+      "dist/public/downloaded",
       `${message.id}-preview.jpg`
     );
 
@@ -131,9 +130,9 @@ function handleImage(message: ImageEventMessage, replyToken: string) {
       downloadPath => {
         // ImageMagick is needed here to run 'convert'
         // Please consider about security and performance by yourself
-        cp.execSync(
-          `convert -resize 240x jpeg:${downloadPath} jpeg:${previewPath}`
-        );
+        const execCmd = `convert -resize 240x jpeg:${downloadPath} jpeg:${previewPath}`;
+        console.log(`exec: ${execCmd}`);
+        cp.execSync(execCmd);
 
         return {
           originalContentUrl:
@@ -160,12 +159,10 @@ function handleVideo(message: VideoEventMessage, replyToken: string) {
   let getContent;
   if (message.contentProvider.type === "line") {
     const downloadPath = path.join(
-      __dirname,
       "dist/public/downloaded",
       `${message.id}.mp4`
     );
     const previewPath = path.join(
-      __dirname,
       "dist/public/downloaded",
       `${message.id}-preview.jpg`
     );
@@ -174,7 +171,9 @@ function handleVideo(message: VideoEventMessage, replyToken: string) {
       downloadPath => {
         // FFmpeg and ImageMagick is needed here to run 'convert'
         // Please consider about security and performance by yourself
-        cp.execSync(`convert mp4:${downloadPath}[0] jpeg:${previewPath}`);
+        const execCmd = `convert mp4:${downloadPath}[0] jpeg:${previewPath}`;
+        console.log(`exec: ${execCmd}`);
+        cp.execSync(execCmd);
 
         return {
           originalContentUrl:
@@ -201,7 +200,6 @@ function handleAudio(message: AudioEventMessage, replyToken: string) {
   let getContent;
   if (message.contentProvider.type === "line") {
     const downloadPath = path.join(
-      __dirname,
       "dist/public/downloaded",
       `${message.id}.m4a`
     );
